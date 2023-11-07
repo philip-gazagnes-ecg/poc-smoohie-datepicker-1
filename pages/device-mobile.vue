@@ -83,7 +83,7 @@ const getDateString = computed<string>(() => {
           noSwipe: true,
         }"
         :month-change-on-scroll="false"
-        :multi-calendars="18"
+        :multi-calendars="4"
         :start-date="startDate"
         :max-date="getMaxDate"
         :disabled-dates="getDisabledDates"
