@@ -110,7 +110,7 @@ const getDateString = computed<string>(() => {
               <button
                 v-for="(choice, index) in flexibilityChoices"
                 :key="index"
-                class="mx-1 rounded-full px-4 py-1"
+                class="mx-1 rounded-full px-4 py-1 border border-blue-200"
                 :class="{ 'bg-blue-500' : flexibility === index, 'bg-blue-50' : flexibility !== index, 'text-white' : flexibility === index }"
                 @click="flexibility = index"
               >

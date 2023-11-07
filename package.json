@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.16",
-    "@vuepic/vue-datepicker": "^7.2.0",
-    "js-datepicker": "^5.18.2"
+    "@vuepic/vue-datepicker": "^7.2.0"
   }
 }
