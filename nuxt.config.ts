@@ -2,10 +2,4 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss'],
-  ssr: true,
-  nitro: {
-    prerender: {
-      routes: ['/', '/device-desktop', '/device-mobile'],
-    },
-  },
 })
