@@ -10,6 +10,9 @@
       <nuxt-link to="/device-mobile-18" class="block h-16 bg-blue-400 hover:bg-blue-300 mt-1 rounded flex items-center justify-center text-xs">
         Mobile (18 months)
       </nuxt-link>
+      <nuxt-link to="/test-vcalendar" class="block h-16 bg-blue-400 hover:bg-blue-300 mt-1 rounded flex items-center justify-center text-xs">
+        V Calendar
+      </nuxt-link>
     </div>
     <div class="flex-1 h-full">
       <slot />
