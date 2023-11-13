@@ -27,7 +27,7 @@ const datepickercontainer = ref<HTMLElement | null>(null)
 const flexibility = ref<number>(0)
 const flexibilityChoices = ['Dates exactes', '+/-1j', '+/-3j', '+/-5j']
 
-const { arrivedState } = useScroll(datepickercontainer, {
+const { arrivedState, isScrolling } = useScroll(datepickercontainer, {
   offset: { bottom: 30 },
 })
 
@@ -125,7 +125,7 @@ const handleDrag = (e:DragEvent):void => {
                       <div class="p-1 bg-slate-100 border-b border-black-100 flex-initial h-16 flex">
                         <span class="flex-1" v-html="tempStartDate ? '...' : getDateString" />
                         <div class="bg-red-200 px-4 font-bold flex justify-center items-center">
-                          {{ nbRows }}
+                          {{ nbRows }}, {{ isScrolling }}
                         </div>
                         <button class="bg-blue-100 flex-initial px-4 underline" @click="nbRows ++">
                           add rows
