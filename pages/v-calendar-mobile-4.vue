@@ -165,7 +165,7 @@ const handleDrag = (e:DragEvent):void => {
                           @drag="handleDrag"
                           @update:model-value="handleUpdateModelValue"
                         />
-                        <div ref="dpbottom" class="h-1 bg-yellow-500 w-full" />
+                        <div ref="dpbottom" class="h-1 w-full" />
                       </div>
                       <div class="flex-initial p-4 border-t border-black-100">
                         <button class="w-full rounded-full bg-blue-900 p-4 text-white">
