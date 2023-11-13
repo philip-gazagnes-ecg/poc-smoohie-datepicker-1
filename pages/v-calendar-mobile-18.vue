@@ -77,7 +77,7 @@ const handleDrag = (e:DragEvent):void => {
 </script>
 
 <template>
-  <button @click="openModal">
+  <button class="m-8 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75" @click="openModal">
     Datepicker
   </button>
   <TransitionRoot as="template" :show="isOpen">
