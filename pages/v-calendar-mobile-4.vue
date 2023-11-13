@@ -31,7 +31,7 @@ const addMonths = useDebounceFn(() => {
   if (nbRows.value < 18) {
     nbRows.value++
   }
-}, 50)
+}, 10)
 
 const handleScroll = () => {
   if (arrivedState.bottom) addMonths()
