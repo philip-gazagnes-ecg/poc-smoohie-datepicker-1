@@ -8,10 +8,6 @@ const isOpen = ref(false)
 
 const nbRows = ref<number>(4)
 
-const addMonths = useDebounceFn(() => {
-  if (nbRows.value < 18) nbRows.value++
-}, 200)
-
 const activeMonth = ref<number>(7)
 const activeYear = ref<number>(2025)
 const range = ref({
@@ -28,8 +24,14 @@ const flexibility = ref<number>(0)
 const flexibilityChoices = ['Dates exactes', '+/-1j', '+/-3j', '+/-5j']
 
 const { arrivedState, isScrolling } = useScroll(datepickercontainer, {
-  offset: { bottom: 30 },
+  offset: { bottom: 50 },
 })
+
+const addMonths = useDebounceFn(() => {
+  if (nbRows.value < 18) {
+    nbRows.value++
+  }
+}, 50)
 
 const handleScroll = () => {
   if (arrivedState.bottom) addMonths()
@@ -125,7 +127,7 @@ const handleDrag = (e:DragEvent):void => {
                       <div class="p-1 bg-slate-100 border-b border-black-100 flex-initial h-16 flex">
                         <span class="flex-1" v-html="tempStartDate ? '...' : getDateString" />
                         <div class="bg-red-200 px-4 font-bold flex justify-center items-center">
-                          {{ nbRows }}, {{ isScrolling }}
+                          {{ nbRows }}, {{ isScrolling }}, {{ arrivedState.bottom }}
                         </div>
                         <button class="bg-blue-100 flex-initial px-4 underline" @click="nbRows ++">
                           add rows
