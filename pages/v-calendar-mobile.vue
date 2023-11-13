@@ -1,17 +1,30 @@
 <script lang="ts" setup>
+const activeMonth = ref<number>(7)
+const activeYear = ref<number>(2025)
 const range = ref({
-  start: new Date(2022, 10, 6),
-  end: new Date(2022, 10, 10),
+  start: new Date(2025, 7, 6),
+  end: new Date(2025, 7, 10),
   // start: null,
   // end: null,
 })
+
 const tempStartDate = ref<Date | null>(null)
-const datepicker = ref<typeof VDatePicker | null>(null)
+const datepicker = ref<any>(null)
 const flexibility = ref<number>(0)
 const flexibilityChoices = ['Dates exactes', '+/-1j', '+/-3j', '+/-5j']
+
+onMounted(async () => {
+  await nextTick
+
+  if (datepicker.value) {
+    await datepicker.value.move({ month: activeMonth.value, year: activeYear.value })
+  }
+})
+
 const getMaxDate = computed<Date | undefined>(() => (tempStartDate.value
   ? new Date(new Date(tempStartDate.value).setDate(tempStartDate.value.getDate() + 21))
-  : undefined))
+  : new Date('2025-12-31')))
+
 const getDateString = computed<string>(() => {
   if (!range.value.end && !range.value.end) return ''
   const { start, end } = range.value
@@ -23,27 +36,30 @@ const getDateString = computed<string>(() => {
   const nbNights = (end.getTime() - start.getTime()) / (1000 * 3600 * 24)
   return `<strong>${startDay} ${startNum} -> ${endDay} ${endNum} ${endMonth} ${flexibility.value ? `(${flexibilityChoices[flexibility.value]})` : ''}</strong><br />Soit ${nbNights} nuits`
 })
-const handleDayClick = e => {
-  // console.log('handleDayClick', e)
-}
-const handleUpdateModelValue = e => {
-  // console.log('handleUpdateModelValue', e)
-  tempStartDate.value = null
-  handleDragEnd()
-}
-const handleDrag = e => {
-  if (!tempStartDate.value) handleDragStart(e.start)
-}
-const handleDragStart = startDate => {
+
+const handleDragStart = (startDate:Date):void => {
   tempStartDate.value = startDate
   document.querySelector('.id-2022-12-15')?.classList.add('custom-disabled')
   document.querySelector('.id-2022-12-16')?.classList.add('custom-disabled')
   document.querySelector('.id-2022-12-17')?.classList.add('custom-disabled')
 }
-const handleDragEnd = () => {
+const handleDragEnd = ():void => {
   document.querySelectorAll('.vc-day')?.forEach(el => {
     el.classList.remove('custom-disabled')
   })
+}
+
+const handleUpdateModelValue = ():void => {
+  tempStartDate.value = null
+  handleDragEnd()
+}
+
+interface DragEvent {
+    start: Date;
+}
+
+const handleDrag = (e:DragEvent):void => {
+  if (!tempStartDate.value) handleDragStart(e.start)
 }
 </script>
 
