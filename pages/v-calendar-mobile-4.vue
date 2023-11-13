@@ -9,8 +9,7 @@ const isOpen = ref(false)
 const nbRows = ref<number>(4)
 
 const addMonths = useDebounceFn(() => {
-  nbRows.value += 4
-  console.log('ddd')
+  if (nbRows.value < 18) nbRows.value++
 }, 200)
 
 const activeMonth = ref<number>(7)
@@ -125,10 +124,13 @@ const handleDrag = (e:DragEvent):void => {
                     <div class="flex h-screen flex-col">
                       <div class="p-1 bg-slate-100 border-b border-black-100 flex-initial h-16 flex">
                         <span class="flex-1" v-html="tempStartDate ? '...' : getDateString" />
-                        <button class="bg-blue flex-initial" @click="nbRows ++">
+                        <div class="bg-red-200 px-4 font-bold flex justify-center items-center">
+                          {{ nbRows }}
+                        </div>
+                        <button class="bg-blue-100 flex-initial px-4 underline" @click="nbRows ++">
                           add rows
                         </button>
-                        <button class="bg-blue flex-initial" @click="closeModal">
+                        <button class="bg-green-200 flex-initial px-4 underline" @click="closeModal">
                           close
                         </button>
                       </div>
