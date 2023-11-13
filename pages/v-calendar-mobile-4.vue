@@ -1,16 +1,17 @@
 <script lang="ts" setup>
 import {
-  Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot,
+  Dialog, DialogPanel, TransitionChild, TransitionRoot,
 } from '@headlessui/vue'
+import { useScroll, useDebounceFn } from '@vueuse/core'
 
 const isOpen = ref(false)
 
-function closeModal() {
-  isOpen.value = false
-}
-function openModal() {
-  isOpen.value = true
-}
+const nbRows = ref<number>(4)
+
+const addMonths = useDebounceFn(() => {
+  nbRows.value += 4
+  console.log('ddd')
+}, 200)
 
 const activeMonth = ref<number>(7)
 const activeYear = ref<number>(2025)
@@ -22,17 +23,29 @@ const range = ref({
 })
 
 const tempStartDate = ref<Date | null>(null)
-const datepicker = ref<any>(null)
+const datepicker = ref<HTMLElement | null>(null)
+const datepickercontainer = ref<HTMLElement | null>(null)
 const flexibility = ref<number>(0)
 const flexibilityChoices = ['Dates exactes', '+/-1j', '+/-3j', '+/-5j']
 
-onMounted(async() => {
-  await nextTick
+const { arrivedState } = useScroll(datepickercontainer, {
+  offset: { bottom: 30 },
+})
 
+const handleScroll = () => {
+  if (arrivedState.bottom) addMonths()
+}
+
+function closeModal() {
+  isOpen.value = false
+}
+const openModal = async() => {
+  isOpen.value = true
+  await nextTick
   if (datepicker.value) {
     await datepicker.value.move({ month: activeMonth.value, year: activeYear.value })
   }
-})
+}
 
 const getMaxDate = computed<Date | undefined>(() => (tempStartDate.value
   ? new Date(new Date(tempStartDate.value).setDate(tempStartDate.value.getDate() + 21))
@@ -112,6 +125,9 @@ const handleDrag = (e:DragEvent):void => {
                     <div class="flex h-screen flex-col">
                       <div class="p-1 bg-slate-100 border-b border-black-100 flex-initial h-16 flex">
                         <span class="flex-1" v-html="tempStartDate ? '...' : getDateString" />
+                        <button class="bg-blue flex-initial" @click="nbRows ++">
+                          add rows
+                        </button>
                         <button class="bg-blue flex-initial" @click="closeModal">
                           close
                         </button>
@@ -127,12 +143,12 @@ const handleDrag = (e:DragEvent):void => {
                           {{ choice }}
                         </button>
                       </div>
-                      <div class="flex-1 overflow-y-scroll">
+                      <div ref="datepickercontainer" class="flex-1 overflow-y-scroll" @scroll="handleScroll">
                         <VDatePicker
                           ref="datepicker"
                           v-model.range="range"
                           expanded
-                          :rows="4"
+                          :rows="nbRows"
                           :max-date="getMaxDate"
                           @drag="handleDrag"
                           @update:model-value="handleUpdateModelValue"
