@@ -134,12 +134,12 @@ const handleDrag = (e:DragEvent):void => {
                     <div class="flex h-screen flex-col">
                       <div class="p-1 bg-slate-100 border-b border-black-100 flex-initial h-16 flex">
                         <span class="flex-1" v-html="tempStartDate ? '...' : getDateString" />
-                        <div class="bg-red-200 px-4 font-bold flex justify-center items-center text-xs">
+                        <!-- <div class="bg-red-200 px-4 font-bold flex justify-center items-center text-xs">
                           {{ nbRows }} - {{ dpBottomIsVisible }}
                         </div>
                         <button class="bg-blue-100 flex-initial px-4 underline" @click="nbRows ++">
                           add rows
-                        </button>
+                        </button> -->
                         <button class="bg-green-200 flex-initial px-4 underline" @click="closeModal">
                           close
                         </button>
