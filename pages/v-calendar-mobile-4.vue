@@ -102,6 +102,7 @@ const handleDrag = (e:DragEvent):void => {
   <button class="m-8 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75" @click="openModal">
     Datepicker
   </button>
+  {{ isOpen }}
   <TransitionRoot as="template" :show="isOpen">
     <Dialog as="div" class="relative z-10" @close="closeModal">
       <TransitionChild
@@ -157,6 +158,7 @@ const handleDrag = (e:DragEvent):void => {
                       </div>
                       <div ref="dproot" class="flex-1 overflow-y-scroll">
                         <VDatePicker
+                          v-if="isOpen"
                           ref="datepicker"
                           v-model.range="range"
                           expanded
