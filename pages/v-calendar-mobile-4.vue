@@ -6,7 +6,7 @@ import { useDebounceFn, useIntersectionObserver } from '@vueuse/core'
 
 const isOpen = ref(false)
 
-const nbRows = ref<number>(4)
+const nbRows = ref<number>(3)
 
 const activeMonth = ref<number>(7)
 const activeYear = ref<number>(2025)
@@ -34,7 +34,7 @@ const addMonths = useDebounceFn(() => {
 
 function closeModal() {
   isOpen.value = false
-  nbRows.value = 4
+  nbRows.value = 3
 }
 
 const openModal = async() => {
