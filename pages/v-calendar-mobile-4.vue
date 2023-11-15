@@ -11,10 +11,10 @@ const nbRows = ref<number>(3)
 const activeMonth = ref<number>(7)
 const activeYear = ref<number>(2025)
 const range = ref({
-  start: new Date(2025, 7, 6),
-  end: new Date(2025, 7, 10),
-  // start: null,
-  // end: null,
+  // start: new Date(2025, 7, 6),
+  // end: new Date(2025, 7, 10),
+  start: null,
+  end: null,
 })
 
 const tempStartDate = ref<Date | null>(null)
